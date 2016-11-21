@@ -8,6 +8,7 @@ Consider all of the following before you decide you'd like to participate. I wil
 ### Guidelines:
 
 __General__
+
 1. You must complete the project in the allotted time. Failure to do so will disqualify you from continuing the project in the coming weeks. 
 2. You must have a daily check-in with me via slack to discuss your prior day's progress in addition to what you plan on doing on the current day.
 3. Your code must be clear and follow my guidelines. 
