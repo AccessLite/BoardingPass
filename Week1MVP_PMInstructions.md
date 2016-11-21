@@ -1,7 +1,7 @@
 # Bite Your Thumb: Week 1 MVP (PM)
 ---
 
-Refer to v1 of the storyboard (link)
+Refer to [v1 of the storyboard](./foaasOcto.pdf)
 
 ---
 
