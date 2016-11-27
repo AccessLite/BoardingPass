@@ -27,3 +27,13 @@ The main screen will be used to display the current __BYT__ (Bite Your Thumb) me
 Assets for the app (including icon, and launch image) will be slacked out later this week once our designers have finished. 
 
 Depending on time, we may push the operations preview screen to next week. But be under the assumption that it will be completed this week.
+
+---
+### Updates 11/26
+After speaking with BYT's tech lead, I've decided that for this first go-around we're not going to worry too much about the overall layout of the preview screen. We're just more concerned in getting the correct base functionality: 
+
+1. Displaying the full text of the operation in the preview
+2. Displaying the text fields available for customization
+3. Typing something into the text fields and tapping "Select" updates the main view
+
+Let's not worry about scrolling behaviors or live-updating the text. We'll push that off to next week. 
