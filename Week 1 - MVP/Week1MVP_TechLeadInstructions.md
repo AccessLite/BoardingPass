@@ -131,4 +131,32 @@ __Guidelines__
 1. `FoaasViewController` will act as our main screen, see PM's notes on design
   - Adding something like a `tapGesture` may help you debug text layout if each tap makes a single API request to a random endpoint
 2. `FoaasOperationsTableViewController` will display our list of `FoaasOperation`
- 
+3. `FoaasPreviewViewController` will display our preview of the operation
+
+--- 
+### Communication between `FoaasPreviewViewController` and `FoaasViewController`
+
+Likely the easiest solution is by making use of `NotificationCenter`
+
+Have your `FoaasPreviewViewController` post a notification that `FoaasViewController` is registered to observe. In the `userInfo` bundle, pass in whatever you may need to update the view (be it `URL`, or `String`, or `Foaas`)
+
+An example of what the registering of the code looks like: 
+
+```swift
+  internal func registerForNotifications() {
+    let notificationCenter = NotificationCenter.default
+    notificationCenter.addObserver(self, selector: #selector(updateFoaas(sender:)), name: Notification.Name(rawValue: "FoaasObjectDidUpdate"), object: nil)
+  }
+  
+  internal func updateFoaas(sender: Notification) {
+    // parse out sender.userInfo as needed
+  }
+```
+
+And for the posting code: 
+
+```swift
+let foaasInfo: [String : Any] = //... add whatever info you'd like to pass along here
+let notificationCenter = NotificationCenter.default
+notificationCenter.post(name: Notification.Name(rawValue: "FoaasObjectDidUpdate"), object: nil, userInfo: [ "info" : foaasInfo ])
+```
