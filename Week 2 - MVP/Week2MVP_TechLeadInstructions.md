@@ -61,6 +61,14 @@ Your `IBAction` code will look something like
       // return to original transform
     })
 ```
+
+### Foul language filter
+This one is straight forward
+
+1. Replace the first vowel of any "curse" word with an asterisk before displaying the message on the `FoaasViewController`
+
+Just keep in mind this feature will be toggle-able in the future in a settings menu. So make it possible to easily alternate between "profanity mode" and "clean mode". 
+
 ---
 # Code Refactors
 
