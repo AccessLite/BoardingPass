@@ -170,6 +170,29 @@ class FoaasPathBuilder {
 
 ```
 ---
+### Refactoring FoaasAPIManager/FoaasDataManager
+
+Update you code so that only the FoaasDataManager makes calls to the FoaasAPIManager. 
+
+For example, you would need to replace your code in the AppDelegate: 
+```swift 
+  if !FoaasDataManager.shared.load() {
+    FoaasAPIManager.getOperations { (foaas: [FoaasOperation]?) in
+      guard let validFoaas = foaas else {return}
+      print(validFoaas.count)
+      FoaasDataManager.shared.save(operations: validFoaas)
+    }
+  }
+```
+
+with a new function in `FoaasDataManager` that would have the exact same functionality contained in a single function:
+```swift
+internal func requestOperations(_ operations: @escaping ([FoaasOperation]?)->Void) {
+}
+```
+
+But be aware that YOU MUST NOT call `FoaasAPIManager` from anywhere besides within your `FoaasDataManager`
+---
 
 ### Other MANDATORY Requirements:
 1. Bug fixes listed in your Week 1 PR Code Comments. 
