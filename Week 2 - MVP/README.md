@@ -13,9 +13,11 @@
 
 1. Update UI to use scrollviews to adapt to keyboard entry
 2. Adjust code such that `DataManager` is the only class that interfaces with `APIManager`
-3. Store locally *all* Foaas info
-4. Enable tap-to-share feature to Twitter/Facebook
-5. Add language filter
+3. Save message as a screenshot
+4. Enable tap-to-share feature to Email/SMS
+5. Add profanity filter
+6. Code refactors
+7. Style Changes (TBD)
 
 ### Continued Goals:
 
