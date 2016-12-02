@@ -1,6 +1,14 @@
 # Bite Your Thumb: Week 1 MVP
 ---
 
+### NOTICE
+
+The scope of this week is subject to change. 
+
+We will 100% be doing everything in this list for this week's MVP, but a bit more may be added as well. Keep checking your Trello and Slack daily to stay on top of these requests
+
+---
+
 ### Links:
 
 #### [FoaasAPI](http://www.foaas.com/)
