@@ -64,10 +64,112 @@ Your `IBAction` code will look something like
 ---
 # Code Refactors
 
-### `FoaasBuilder`
+### `FoaasPathBuilder`
 
-We're creating a new class specifically meant to generating the path components to our `URL`s
+We're creating a new class specifically meant to generating the path components to our `URL`s. I'm not thrilled by our implementations the first time around so I have a new spec, read this carefully as it will seek to challenge your abstract thinking and your proficiency with higher-order functions in swift
 
+#### `init(operation: FoaasOperation)`
+This init should set self.operation, and self.operationFields. OperationFields intends to be a dictionary corresponding to flipping the key/value pairs of the `FoaasField`s in each `FoaasOperation` and flattening the array. 
+
+__Why is this needed?__
+We want to extract *unique* key values to be able to use later. But every `FoaasField` uses nearly the same keys for their values, specifically `name`, `field`. We want to use the values contained in the `.name` and `.field` properties as those will be unique per `FoaasOperation`
+  
+ie. using the /ballmer endpoint
+Normally, the `FoaasOperation.fields` array would look like: 
+```
+  fields = [  [ "name" : "Name",    "field" : "name"    ],
+              [ "name" : "Company", "field" : "company" ],  
+              [ "name" : "From",    "field" : "from"    ]     
+           ]
+```
+Which is problematic since we want to flatten this array of `[String : String]`. So instead, we want reverse the key/values in each element, then flatten that array to look like: 
+```
+  operationFields = [ "Name" : "name", 
+                      "name" : "field",
+                      "Company" : "name",
+                      "company" : "field",
+                      "From" : "name",
+                      "from" : "field" ]
+```
+
+While we're at it, we should also ignore keys that only differ due to capitalization. So the final operation fields dict should look like: 
+
+```
+  operationFields = [ "name" : "field",
+                      "company" : "field",
+                      "from" : "field" ]
+```
+
+Here is what the class *should* look like. I've included documentation comments to help guide you:
+
+```swift
+class FoaasPathBuilder {
+  var operation: FoaasOperation!
+  var operationFields: [String : String]!
+  
+  /**
+   Flattens an array of [FoaasField] with identical keys, into a one-dimensional array of [String:String] while performing
+   a case-insensitive comparison of key-value pairs to store only unique keys.
+   
+   - parameter operation: The `FoaasOperation` to use in building a URL path.
+   */
+  init(operation: FoaasOperation) {
+  }
+  
+  /**
+   Goes through a `FoaasOperation.url` to replace placeholder text with its corresponding value stored in self.operationsField
+   in the correct order. The String is also passed back with percent encoding automatically applied.
+   
+   example:
+   self.operationFields = [ "from" : "Grumpy Cat", "name" : "Nala Cat"]
+   self.operation.url = "/bus/:name/:from/"
+   
+   build() // returns "/bus/Nala%20Cat/Grumpy%20Cat"
+
+   - returns: A `String` that corresponds to the path component needed to create a `URL` to request a `Foaas` object
+   */
+  func build() -> String {
+  }
+  
+  /**
+   Updates the `value` of an element with the corresponding `key`. If the `key` does not exist, nothing happens. 
+   
+   - parameter key: The key of an element in `self.operationFields`
+   - parameter value: The value to change to.
+   */
+  func update(key: String, value: String)  {
+  }
+  
+  /**
+   Utility function to get the index of a specified key in its correct order in the `FoaasOperation.url` property. 
+    
+   For example, for the Ballmer operation, its corresponding FoaasOperation.url is `/ballmer/:name/:company/:from`
+   
+   - indexOf(key: "name") // should return 0
+   - indexOf(key: "company") // should return 1
+   - indexOf(key: "from") // should return 2
+   - indexOf(key: ":name") // should return nil
+   - indexOf(key: "tool") // should return nil
+   
+   - parameter key: The key in self.operationFields to search for. 
+   - returns: The index position of the key if it exists in self.operationFields. `nil` otherwise.
+   - seealso: `FoaasPathBuilder.allKeys`
+  */
+  func indexOf(key: String) -> Int? {
+  }
+  
+  /**
+   Utility method that returns all of the keys for a `FoaasOperation`'s `field`s
+   
+   - returns: The keys contained in `self.operation.fields` as `[String]`
+  */
+  func allKeys() -> [String] {
+    return self.operation.fields.map { $0.field }
+  }
+}
+
+```
+---
 
 ### Other MANDATORY Requirements:
 1. Bug fixes listed in your Week 1 PR Code Comments. 
