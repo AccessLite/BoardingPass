@@ -99,6 +99,8 @@ You may want to read up on [material design's take on elevation](https://materia
 
 From the main screen, we want to be able to either tap on the disclosure indicator or perform a swipe up to reveal the settings menu below it. We can start with a simple animation that moves the top view up in a linear transition that lasts somewhere between `.10` and `.40` seconds... whatever you think works best. 
 
+![settings_menu_show](../Images/settings_menu_show.png)
+
 Right now the settings menu will have two selection components (color palette, profanity filter), 4 share options (copy/paste, save to photoroll, facebook, twitter), and two text labels (app version, your email). 
 
 The color palette should allow users to swipe left/right between color choices, and when a choice is made the app's colors should update to use that color's palette (so that color's 100, 500, and 700 values). For testing, use blue, green and a default of purple. To make it clear that users need to swipe to make a change, we should add an alpha gradient so that the edges fade out entirely, but reveal a partial color swatch. 
@@ -108,7 +110,9 @@ Facebook/twitter integration will wait until next week. But hook up your existin
 Not sure how we're going to update the version or the message at the bottom. Check with the tech lead on that one. 
 
 ### Keyboard changes
-For details on this one, check in with your tech lead. But we'd like for the views to animate along with the keyboard in terms of timing and animation curves. 
+For details on this one, check in with your tech lead. But we'd like for the views to animate along with the keyboard in terms of timing and animation curves. The overall effect should appear as a smooth keyboard show/hide with the bottom of the view moving exactly with the top of the keyboard. 
+
+![keyboard smooth](../Images/keyboard_appearance.png)
 
 ### Removing the navigation bar
 Design decided that the app is so simple that it doesn't make sense to have a bulky navigation bar. So we're replacing it in favor of simple gestures and buttons. Check in with the tech lead on thoughts on how to best accomplish this. 
