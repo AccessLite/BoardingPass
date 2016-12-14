@@ -61,15 +61,54 @@ You can read about the theory if you're intereted, but here are the specs we nee
 | Text Labels | Preview View | Black | 100% | 18pt | Medium | Label |
 | Placeholder Text | Preview View | Black | 34% | 13pt | Regular | Placeholder |
 | Settings Labels | Settings Menu | Black | 87% | 18pt | Regular (ALL CAPS) | Settings |
-| On/Off | Settings Menu | Black | 87% | 14pt | Regular (ALL CAPS) | Caption |
+| On/Off | Settings Menu | Black | 87% | 14pt | Regular (ALL CAPS) | Caption 1 |
+| App Info | Settings Menu | Black | 34% | 12pt | Regular (ALL CAPS) | Caption 2 |
 
 ### Layout
 
-Here are some examples of the layout. I'd recommend
+Here are some examples of the layout. I'd recommend using your best judgement for the majority of the elements, attempting to get as close to the design spec as possible. If you have time/are interested, contact me for the `.sketch` file. You will need to download [Sketch](https://www.sketchapp.com/). It's $99 for a license but also comes with a free trial period that will be long enough to complete this project. 
 
 | Location | Items | Relation |
 | --- | --- | --- |
 | Main Screen | Message Text, Message Subtitle | 28 - 48pt from last baseline of text to first baseline of subtitle |
+| Main Screen | Message Text + Message Subtitle | Centered Y - 16pt margin from top of button |
 | Main Screen | All | 16pt leading, trailing | 
 | Main Screen | Disclosure indicator | 8pt from bottom, centered X |
 | Main Screen | Button | 32pt from trailing, 48pt from bottom |
+| Operation List | Cell | 64pt height |
+| Operation List | Cell Text | 34pt font, 16pt from leading, 8pt from bottom |
+
+### Buttons
+
+![Elevation example - Google](https://material-design.storage.googleapis.com/publish/material_v_9/0B6Okdz75tqQsTVdGcm1LX0dVeGM/whatismaterial_3d_elevation1.png)
+
+You may want to read up on [material design's take on elevation](https://material.google.com/material-design/elevation-shadows.html) for this one, in order to try to get the shadows as close to correct as possible. Basically: 
+
+1. All views are 1pt thick in the z-dimension
+2. The z-dimension extends from 0pt height ("bottom" layer of app) to 24pt ("ceiling" layer of app)
+3. Depending on the element, there are "heights" that each view should normally occupy. 
+4. For interactive elements, like buttons, their "heights" change when in their active state. 
+
+#### Example of button elevation: 
+**(left: active, right: inactive)**
+
+![Button States](../Images/button_states.png)
+
+
+### Settings Menu Details
+
+From the main screen, we want to be able to either tap on the disclosure indicator or perform a swipe up to reveal the settings menu below it. We can start with a simple animation that moves the top view up in a linear transition that lasts somewhere between `.10` and `.40` seconds... whatever you think works best. 
+
+Right now the settings menu will have two selection components (color palette, profanity filter), 4 share options (copy/paste, save to photoroll, facebook, twitter), and two text labels (app version, your email). 
+
+The color palette should allow users to swipe left/right between color choices, and when a choice is made the app's colors should update to use that color's palette (so that color's 100, 500, and 700 values). For testing, use blue, green and a default of purple. To make it clear that users need to swipe to make a change, we should add an alpha gradient so that the edges fade out entirely, but reveal a partial color swatch. 
+
+Facebook/twitter integration will wait until next week. But hook up your existing work on copy/paste and screenshoting to their appropriate buttons. 
+
+Not sure how we're going to update the version or the message at the bottom. Check with the tech lead on that one. 
+
+### Keyboard changes
+For details on this one, check in with your tech lead. But we'd like for the views to animate along with the keyboard in terms of timing and animation curves. 
+
+### Removing the navigation bar
+Design decided that the app is so simple that it doesn't make sense to have a bulky navigation bar. So we're replacing it in favor of simple gestures and buttons. Check in with the tech lead on thoughts on how to best accomplish this. 
