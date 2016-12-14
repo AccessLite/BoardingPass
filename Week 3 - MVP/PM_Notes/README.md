@@ -63,3 +63,13 @@ You can read about the theory if you're intereted, but here are the specs we nee
 | Settings Labels | Settings Menu | Black | 87% | 18pt | Regular (ALL CAPS) | Settings |
 | On/Off | Settings Menu | Black | 87% | 14pt | Regular (ALL CAPS) | Caption |
 
+### Layout
+
+Here are some examples of the layout. I'd recommend
+
+| Location | Items | Relation |
+| --- | --- | --- |
+| Main Screen | Message Text, Message Subtitle | 28 - 48pt from last baseline of text to first baseline of subtitle |
+| Main Screen | All | 16pt leading, trailing | 
+| Main Screen | Disclosure indicator | 8pt from bottom, centered X |
+| Main Screen | Button | 32pt from trailing, 48pt from bottom |
