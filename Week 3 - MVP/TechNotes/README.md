@@ -9,7 +9,7 @@ So design is coming up with a big ask of us here in somewhat re-doing our naviga
 2. The navigation controller's navbar will need to be hidden, however. Fortunately we should be able to call `setNavigationBarHidden(Bool, animated: Bool)` on the navcontroller to hide it in each view controller. 
 3. If we're hiding the nav bar, we're going to have to hook up our `dismiss` functionality to the buttons that we're adding to replace the bar's nav items. 
 4. In the preview view, the "back arrow" button should obviously pop the view controller back to the operation list. 
-5. clicking on the "checkmark" button is effectively our "Done" button and should dismiss the nav stack and show an updated `FoaasViewController`
+5. Clicking on the "checkmark" button is effectively our "Done" button and should dismiss the nav stack and show an updated `FoaasViewController`
 
 ---
 ### Style Manager
