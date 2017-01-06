@@ -1,6 +1,22 @@
 # Week 3 MVP - Tech Lead Notes
 ---
 
+Broad weekly thoughts:
+
+As the project become more complex and individualized (in terms of code), it becomes harder for a lead to write out code ahead of time for proposed functionality. So this week you will be seeing things much less in terms of concrete class outlines or sample code.
+
+Instead, it is going to be on you to decide the best approach on how to tackle a problem. What this means is that you will need to look over your current implementation and proposed changes in order to determine how you're going to write and structure your code. 
+
+I will be more of a resource to bounce implementation ideas off of and a life line in the event that you just cannot resolve a bug or can finish a feature implementation. To that effect, this week will be different than the prior ones in that we'll have scheduled group discussions about the code and its implementation. You will be expected to come with questions and a basic understanding of what needs to be accomplished; I will be there to fill in the gaps. 
+
+**The group chats will also serve a dual purpose.**
+
+There are aspects of this week's design that I'm not entirely certain myself how would be best implemented. I have some idea based on the current state of the project, but I'd rather us discuss implementation details together so we can nail down what is possible and not possible. 
+
+I'd like to have at least 2-3 1 hour chats where we talk about different points of the features. We'll need to chat further on times that are best for poeple. 
+
+---
+
 ### Navigation Re-design
 
 So design is coming up with a big ask of us here in somewhat re-doing our navigation UI. Based on the new designs, I'm going to make a few suggestions on how to proceed: 
@@ -14,7 +30,7 @@ So design is coming up with a big ask of us here in somewhat re-doing our naviga
 ---
 ### Style Manager
 
-We'll need something to coordinate app-wide stylistic changes to both color and font. 
+We'll need something to coordinate app-wide stylistic changes to both color and font. Ideally I see this being implemented in a singleton-like (if not, just like a singleton) way. 
 
 #### Font
 
@@ -44,29 +60,76 @@ The values provided to us from the PM will be in their hex values. There are a n
 ---
 ### Shadows
 
-This one's going to be a tough one, as displaying relative distance of the views using shadow drawing is going to take some work in order to architect. For now, ensure that your views/buttons have shadows that roughly correspond to what the PM's design is asking. We'll need to revisit this implementation once I've thought of it for a bit. 
+This one's going to be a tough one, as displaying relative distance of the views using shadow drawing is going to take some work in order to architect. For now, ensure that your views/buttons have shadows that roughly correspond to what the PM's design is asking. We'll need to revisit this implementation during our weekly chats. 
 
 ---
-### Settings Menu - `FoaasSettingsMenuView` / `FoaasSettingsMenuDelegate`
+### Settings Menu - (`FoaasSettingsMenuView` / `FoaasSettingsMenuDelegate`)?
 
 What we'll likely want to do is create a new custom view that "lives" under our original `Foaas` view. When we present the settings menu/view, we want a quick and smooth animation of the view upwards to reveal the setting menu below. If you really want our PM to loose their mind, have a slight parallax by animating the settings menu upwards on reveal, but over a smaller distance (this will give the impression that the view has shifted upwards and that the setting menu has shifted into place below it, instead of the feeling that the settings menu is always just statically there). 
 
 In order to show the settings menu, users should be able to either swipe up from the bottom or tap on the disclosure indictor, so add both of those gestures in. To dismiss, tapping anywhere on the view controller (outside of the bounds of the settings view) or swiping down from the `Foaas` view, should close the settings menu. 
 
-- color palette switching (page/swipe)
-- sharing options
-- re-linking screenshot/share
-- loading "about" section info
-- profanity toggle switch, updates app-wide
+#### Color Palette Switch
 
-- version management
-- downloading config files
-- loading config/storing user defaults
-- loading color palettes from config
+I had envisioned this to kind of work like a paging scroll view that fades in opacity as it hits the edges of the scroll view's frame. Each subview would have a defined width/height and be of the color(s) available to the user. Paging to a different view would automatically update all of the views... so in this case the background of the `FoaasViewController`, which is still partially visible, should also update right away.
 
-- live updating the text
-- changing cursor color to accent 
-- refined keyboard behavior (animation/timing)
+The available colors should be populated from the values contained in the style manager.
+
+#### Sharing Options
+In addition to the saving to photo roll, we now want to give uses the option to send the `Foaas` screenshot in: 
+1. Email and iMessage
+2. Facebook
+3. Twitter
+
+Additionally, we want to have a `Copy` option available when presenting the Email/iMessage sharing menu.
+
+So part of this will just involve relinking the code you've implemented and having it triggered by these new buttons. I'd probably suggest doing it via delegation and would discourage using `NotificationCenter` unless you have a compelling reason. 
+
+#### Loading the "About" section info
+The details of how to get this data in place is discussed below, under **Version Management**, but it suffices to say that this will just need to be two labels that accept their text fields being updated by another object... pretty boiler plate stuff. 
+
+#### Profanity Toggle
+This one is likely a bit tricky. The toggle should immediately update the profanity in the (partially) obscured `FoaasViewController` if necessary.. in addition to everywhere else. 
+
+As always, the mantra is "make this work first." But I'd like to find an elegant solution to this problem that doesn't require checking a `Bool` owned by some state manager. But there could also be no other way to do this -- we'll discuss further in person. 
+
+---
+### Version Management
+
+The over-arching idea is to keep the app somewhat dynamic; we want to be able to update content for users based on RESTful requests to some endpoint that will update their local settings. 
+
+For example, if we want to make new color schemes available:
+1. The app would load up
+2. Check the current version of the app via request to our endpoint
+3. If the version is out of date, download a new json file
+4. Replace the old settings/info with that of the new json file
+5. Save these settings
+6. Update the app as necessary
+
+Right now, in order to have a proof of concept we're going to focus on color schemes and "About Info" section text. I think the easiest solution is to host an endpoint using [Fieldbook](https://fieldbook.com/) but in the coming week(s), move to using firebase. 
+
+Should the firebase migration work well enough, it opens the possibility of adding lots of new features as we can create and maintain a database of users. 
+
+#### Local Storage
+There's a lot of ways we could do this, but ultimately I'd like to have a config file stored locally on the device from which our settings manager "reads" from in order to populate info. 
+
+However, to start, we can effectively ignore local storage and instead:
+1. make an API request
+2. parse json via a settings manager
+3. save those settings the `UserDefaults`
+
+Then on app loads, following an API version check we'd: 
+1. Check `UserDefaults` 
+2. Load information from `UserDefaults`
+
+---
+### Refinements
+
+These are a few bullets that can be accomplished with light-moderate difficulty and probably won't require any additional explanation:
+
+1. Live updating of the text (letter-for-letter)
+2. Changing the cursor's tint color to match the accent color of the color scheme
+3. Having the `FoaasPreviewViewController` animate in with the keyboard with the same animation and timing 
 
 #### refactoring
 - only 1 API call per operation, edit local copy, send message info in notification bundle
