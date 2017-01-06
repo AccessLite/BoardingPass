@@ -3,7 +3,7 @@
 ![Octo!](../Week 1 - MVP/Octopus-Cute.png)
 ---
 
-### [Tech Lead Info - Coming Soon](https://github.com/AccessLite/BoardingPass/tree/master/Week%203%20-%20MVP/TechNotes)
+### [Tech Lead Info](https://github.com/AccessLite/BoardingPass/tree/master/Week%203%20-%20MVP/TechNotes)
 
 ### [Project Manager Info](https://github.com/AccessLite/BoardingPass/blob/master/Week%203%20-%20MVP/PM_Notes/README.md)
 
