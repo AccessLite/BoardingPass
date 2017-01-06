@@ -76,7 +76,9 @@ I had envisioned this to kind of work like a paging scroll view that fades in op
 The available colors should be populated from the values contained in the style manager.
 
 #### Sharing Options
+
 In addition to the saving to photo roll, we now want to give uses the option to send the `Foaas` screenshot in: 
+
 1. Email and iMessage
 2. Facebook
 3. Twitter
@@ -99,6 +101,7 @@ As always, the mantra is "make this work first." But I'd like to find an elegant
 The over-arching idea is to keep the app somewhat dynamic; we want to be able to update content for users based on RESTful requests to some endpoint that will update their local settings. 
 
 For example, if we want to make new color schemes available:
+
 1. The app would load up
 2. Check the current version of the app via request to our endpoint
 3. If the version is out of date, download a new json file
@@ -114,11 +117,13 @@ Should the firebase migration work well enough, it opens the possibility of addi
 There's a lot of ways we could do this, but ultimately I'd like to have a config file stored locally on the device from which our settings manager "reads" from in order to populate info. 
 
 However, to start, we can effectively ignore local storage and instead:
+
 1. make an API request
 2. parse json via a settings manager
 3. save those settings the `UserDefaults`
 
 Then on app loads, following an API version check we'd: 
+
 1. Check `UserDefaults` 
 2. Load information from `UserDefaults`
 
@@ -131,12 +136,12 @@ These are a few bullets that can be accomplished with light-moderate difficulty 
 2. Changing the cursor's tint color to match the accent color of the color scheme
 3. Having the `FoaasPreviewViewController` animate in with the keyboard with the same animation and timing 
 
-#### refactoring
-- only 1 API call per operation, edit local copy, send message info in notification bundle
+#### Refactors
+I'd like there to only be 1 API call per `FoaasOperation` and for you to edit that local copy as needed.
 
-#### UX
-- users should not be able to tap checkmark until they've filled out all of the `foaasfields`
-- tapping on the "+" button while the settings menu is present should dismiss the settings in addition to showing the operation list modally
-- textfield should adapt to the size of its content, link blog post
-- centering label content on main view
-- highlighting fooas placeholder text using accent color
+#### UX Enhancements
+1. Users should not be able to tap checkmark until they've filled out all of the `FoaasFields`
+2. Tapping on the "+" button while the settings menu is present should dismiss the settings in addition to showing the operation list modally. But they should happen sequentially, not at the same time.
+3. Textfield should adapt to the size of its content, see this [blog post](https://medium.com/@louistur/dynamic-sizing-of-uitextview-with-autolayout-6dbcfa8e5e2d#.1k8hcwajn)
+4. Center the label content on main foaas view
+5. Highlighting fooas placeholder text using accent color
