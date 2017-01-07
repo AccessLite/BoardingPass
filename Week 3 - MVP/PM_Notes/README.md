@@ -9,9 +9,9 @@ Please take a quick moment to review the [PDF of Sprint 3's design](../Images/oc
 
 *Note: I'm not sure why the buttons on the pdf have a strange white boxing effect. Refer to these additional screen shots to understand what the icons should look like (the provided assets will be correct): 
 
-1. [Main Screen](../Image/main_view_ss.png)
-2. [Operation List](../Image/operation_list_ss.png)
-3. [Preview View](../Image/preview_view_ss.png)
+1. [Main Screen](../Images/main_view_ss.png)
+2. [Operation List](../Images/operation_list_ss.png)
+3. [Preview View](../Images/preview_view_ss.png)
 
 ### What is Material Design?
 
