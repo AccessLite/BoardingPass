@@ -116,3 +116,8 @@ For details on this one, check in with your tech lead. But we'd like for the vie
 
 ### Removing the navigation bar
 Design decided that the app is so simple that it doesn't make sense to have a bulky navigation bar. So we're replacing it in favor of simple gestures and buttons. Check in with the tech lead on thoughts on how to best accomplish this. 
+
+### Textfield Design Changes (UPDATE 1/15/17)
+We've adapted the design of the text fields so as to avoid different shadowing layers in the preview view. I hear from your tech lead that it isn't an easy implementation for such a minor UI feature. Maybe in the future... but for now, here's the updated design. Your tech lead will be taking point on the textfield code I believe.
+
+![Updated Textfields](../Images/updated_textfields.png)
